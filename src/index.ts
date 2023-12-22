@@ -9,6 +9,8 @@ import LoginUserController from './external/api/LoginUserController';
 import UserMiddleware from './external/api/UserMiddleware';
 import UserEntity from './external/db/UserEntity';
 import PasswordCripto from './external/auth/passwordCripto';
+import DeleteUserController from './external/api/DeleteUserController';
+import DeleteUser from './core/user/service/DeleteUser';
 
 const app = express();
 const port = process.env.PORT || 80;
@@ -25,6 +27,7 @@ app.listen(port, () => {
 const userEntity = new UserEntity();
 const passwordCrypt = new PasswordCripto();
 const createUser = new CreateUser(userEntity, passwordCrypt);
+const deleteUser = new DeleteUser(userEntity);
 const loginUser = new LoginUser(userEntity, passwordCrypt);
 
 new LoginUserController(app, loginUser);
@@ -32,3 +35,4 @@ new LoginUserController(app, loginUser);
 // ------------------------------------ Closed Routes
 const userMid = UserMiddleware(userEntity);
 new CreateUserController(app, createUser, userMid);
+new DeleteUserController(app, deleteUser, userMid);
