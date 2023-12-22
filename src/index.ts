@@ -27,8 +27,8 @@ const passwordCrypt = new PasswordCripto();
 const createUser = new CreateUser(userEntity, passwordCrypt);
 const loginUser = new LoginUser(userEntity, passwordCrypt);
 
-new CreateUserController(app, createUser);
 new LoginUserController(app, loginUser);
 
 // ------------------------------------ Closed Routes
 const userMid = UserMiddleware(userEntity);
+new CreateUserController(app, createUser, userMid);
