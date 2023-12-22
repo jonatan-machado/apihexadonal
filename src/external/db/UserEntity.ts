@@ -15,4 +15,13 @@ export default class UserEntity {
     ]);
     return !result ? null : result;
   }
+
+  async findById(id: string): Promise<User | null> {
+    const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    return !result ? null : result;
+  }
+
+  async delete(id: string): Promise<void> {
+    await db.query('DELETE * FROM users WHERE id = $1', [id]);
+  }
 }
